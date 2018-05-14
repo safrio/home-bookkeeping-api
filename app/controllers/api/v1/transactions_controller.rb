@@ -22,18 +22,18 @@ class Api::V1::TransactionsController < ApplicationController
 
   def destroy
     Transaction.find(params[:id]).destroy
-  	render json: { message: "done" }, status: :ok
+    render json: { message: "done" }, status: :ok
   end
 
-	def update
-	  resource = Transaction.find(params[:id])
+  def update
+    resource = Transaction.find(params[:id])
 
-	  if resource.update(resource_params)
+    if resource.update(resource_params)
       render json: resource.to_json, status: :updated
-	  else
+    else
       render json: resource.errors.to_json, status: :unprocessable_entity
-	  end
-	end
+    end
+  end
 
   protected
 
