@@ -1,9 +1,10 @@
 class Api::V1::TransactionsController < ApplicationController
   def index
-    dates = resource_params[:from]..resource_params[:to]
+    to_date = (Date.parse(resource_params[:date]) + 1.day).strftime("%Y-%m-%d")
+    dates_range = resource_params[:date]..to_date
     transactions = []
 
-    Transaction.where(published_at: dates).order(:published_at).each do |t|
+    Transaction.where(published_at: dates_range).order(:published_at).each do |t|
       transactions.push(t)
     end
 
@@ -25,6 +26,10 @@ class Api::V1::TransactionsController < ApplicationController
     render json: { message: "done" }, status: :ok
   end
 
+  def show
+    render json: Transaction.find(params[:id])
+  end
+
   def update
     resource = Transaction.find(params[:id])
 
@@ -38,6 +43,6 @@ class Api::V1::TransactionsController < ApplicationController
   protected
 
   def resource_params
-    params.permit(:published_at, :sum, :direction, :category_id, :from, :to)
+    params.permit(:published_at, :sum, :direction, :category_id, :date)
   end
 end

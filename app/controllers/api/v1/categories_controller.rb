@@ -13,6 +13,10 @@ class Api::V1::CategoriesController < ApplicationController
     end
   end
 
+  def show
+    render json: Category.find(params[:id])
+  end
+
   def destroy
     Category.find(params[:id]).destroy
     render json: { message: "done" }, status: :ok
