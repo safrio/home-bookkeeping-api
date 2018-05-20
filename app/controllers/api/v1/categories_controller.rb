@@ -28,9 +28,9 @@ class Api::V1::CategoriesController < ApplicationController
     resource = Category.find(params[:id])
 
     if resource.update(resource_params)
-      render json: resource.to_json, status: :updated
+      render json: resource
     else
-      render json: resource.errors.to_json, status: :unprocessable_entity
+      render json: resource.errors, status: :unprocessable_entity
     end
   end
 
