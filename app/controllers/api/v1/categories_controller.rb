@@ -35,6 +35,6 @@ class Api::V1::CategoriesController < ApplicationController
   protected
 
   def resource_params
-    params.permit(:name, :page, :per_page)
+    params.permit(:name, :page, :per_page, :id)
   end
 end
