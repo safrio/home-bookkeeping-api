@@ -22,8 +22,10 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def destroy
-    Transaction.find(params[:id]).destroy
-    render json: { message: "done" }, status: :ok
+    resource = Transaction.find(params[:id])
+    resource.destroy
+
+    render json: { status: resource.destroyed? }, status: :ok
   end
 
   def show

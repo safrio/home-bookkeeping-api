@@ -18,8 +18,10 @@ class Api::V1::CategoriesController < ApplicationController
   end
 
   def destroy
-    Category.find(params[:id]).destroy
-    render json: { message: "done" }, status: :ok
+    resource = Category.find(params[:id])
+    resource.destroy
+
+    render json: { status: resource.destroyed? }, status: :ok
   end
 
   def update
