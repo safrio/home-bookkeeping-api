@@ -34,7 +34,7 @@ class Api::V1::TransactionsController < ApplicationController
     resource = Transaction.find(params[:id])
 
     if resource.update(resource_params)
-      render json: resource.to_json, status: :updated
+      render json: resource.to_json, status: :ok
     else
       render json: resource.errors.to_json, status: :unprocessable_entity
     end
@@ -43,6 +43,6 @@ class Api::V1::TransactionsController < ApplicationController
   protected
 
   def resource_params
-    params.permit(:published_at, :sum, :direction, :category_id, :date)
+    params.permit(:published_at, :sum, :direction, :category_id, :date, :id)
   end
 end
